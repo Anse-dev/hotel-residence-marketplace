@@ -1,32 +1,75 @@
-import { Column, Model, Table, DataType } from 'sequelize-typescript';
+export class Hotel {
+    private id: string;
+    private name: string;
+    private location: string;
+    private rooms: number;
+    private amenities: string[];
+    private pricePerNight: number;
 
-@Table({ tableName: 'hotels', timestamps: true, })
+    constructor(
+        id: string,
+        name: string,
+        location: string,
+        rooms: number,
+        amenities: string[],
+        pricePerNight: number
+    ) {
+        this.id = id;
+        this.name = name;
+        this.location = location;
+        this.rooms = rooms;
+        this.amenities = amenities;
+        this.pricePerNight = pricePerNight;
+    }
 
-export class Hotel extends Model {
-    @Column({ primaryKey: true })
-    id: string;
+    // Getters and Setters
+    public getId(): string {
+        return this.id;
+    }
 
-    @Column
-    name: string;
+    public setId(id: string): void {
+        this.id = id;
+    }
 
-    @Column
-    location: string;
+    public getName(): string {
+        return this.name;
+    }
 
-    @Column
-    rooms: number;
+    public setName(name: string): void {
+        this.name = name;
+    }
 
-    @Column({
-        type: DataType.TEXT,
-        get() {
-            const rawValue = this.getDataValue('amenities');
-            return rawValue ? JSON.parse(rawValue) : [];
-        },
-        set(value: string[]) {
-            this.setDataValue('amenities', JSON.stringify(value));
-        },
-    })
-    amenities: string[];
+    public getLocation(): string {
+        return this.location;
+    }
 
-    @Column
-    pricePerNight: number;
+    public setLocation(location: string): void {
+        this.location = location;
+    }
+
+    public getRooms(): number {
+        return this.rooms;
+    }
+
+    public setRooms(rooms: number): void {
+        this.rooms = rooms;
+    }
+
+    public getAmenities(): string[] {
+        return this.amenities;
+    }
+
+    public setAmenities(amenities: string[]): void {
+        this.amenities = amenities;
+    }
+
+    public getPricePerNight(): number {
+        return this.pricePerNight;
+    }
+
+    public setPricePerNight(pricePerNight: number): void {
+        this.pricePerNight = pricePerNight;
+    }
+
+    // Additional methods for domain logic can be added here
 }

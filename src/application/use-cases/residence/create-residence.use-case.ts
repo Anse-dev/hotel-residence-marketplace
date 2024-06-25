@@ -1,21 +1,28 @@
 import { Inject } from "@nestjs/common";
-import { ResidenceDTO } from "src/application/dtos/residence.dto";
+
 import { Residence } from "src/domain/entities/residence.entity";
 import { IResidenceRepository } from "src/domain/repositories/residence.repository";
+import { ResidenceDTO } from "src/presentation/dtos/residence.dto";
 
 
 export class CreateResidenceUseCase {
   constructor(@Inject('IResidenceRepository') private readonly residenceRepository: IResidenceRepository) { }
 
   async execute(residenceDTO: ResidenceDTO): Promise<void> {
-    const residence = new Residence();
-    residence.id = new Date().toISOString();
-    residence.name = residenceDTO.name;
-    residence.location = residenceDTO.location;
-    residence.units = residenceDTO.units;
-    residence.amenities = residenceDTO.amenities;
-    residence.pricePerMonth = residenceDTO.pricePerMonth;
 
+    const residence = this.createResidence(residenceDTO);
     await this.residenceRepository.create(residence);
   }
+
+  createResidence(residenceDTO: ResidenceDTO): Residence {
+    const id = new Date().toISOString();
+    return new Residence(
+      id,
+      residenceDTO.name,
+      residenceDTO.location,
+      residenceDTO.units,
+      residenceDTO.amenities,
+      residenceDTO.pricePerMonth
+    );
+  };
 }

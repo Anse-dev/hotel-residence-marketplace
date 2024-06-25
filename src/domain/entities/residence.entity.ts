@@ -1,32 +1,75 @@
+export class Residence {
+    private id: string;
+    private name: string;
+    private location: string;
+    private units: number;
+    private amenities: string[];
+    private pricePerMonth: number;
 
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+    constructor(
+        id: string,
+        name: string,
+        location: string,
+        units: number,
+        amenities: string[],
+        pricePerMonth: number
+    ) {
+        this.id = id;
+        this.name = name;
+        this.location = location;
+        this.units = units;
+        this.amenities = amenities;
+        this.pricePerMonth = pricePerMonth;
+    }
 
-@Table({ tableName: 'residences', timestamps: true, })
-export class Residence extends Model {
-    @Column({ primaryKey: true })
-    id: string;
+    // Getters and Setters
+    public getId(): string {
+        return this.id;
+    }
 
-    @Column
-    name: string;
+    public setId(id: string): void {
+        this.id = id;
+    }
 
-    @Column
-    location: string;
+    public getName(): string {
+        return this.name;
+    }
 
-    @Column
-    units: number;
+    public setName(name: string): void {
+        this.name = name;
+    }
 
-    @Column({
-        type: DataType.TEXT, 
-        get() {
-            const rawValue = this.getDataValue('amenities');
-            return rawValue ? JSON.parse(rawValue) : [];
-        },
-        set(value: string[]) {
-            this.setDataValue('amenities', JSON.stringify(value));
-        },
-    })
-    amenities: string[];
+    public getLocation(): string {
+        return this.location;
+    }
 
-    @Column
-    pricePerMonth: number;
+    public setLocation(location: string): void {
+        this.location = location;
+    }
+
+    public getUnits(): number {
+        return this.units;
+    }
+
+    public setUnits(units: number): void {
+        this.units = units;
+    }
+
+    public getAmenities(): string[] {
+        return this.amenities;
+    }
+
+    public setAmenities(amenities: string[]): void {
+        this.amenities = amenities;
+    }
+
+    public getPricePerMonth(): number {
+        return this.pricePerMonth;
+    }
+
+    public setPricePerMonth(pricePerMonth: number): void {
+        this.pricePerMonth = pricePerMonth;
+    }
+
+    // Additional methods can be added as needed for domain logic
 }
