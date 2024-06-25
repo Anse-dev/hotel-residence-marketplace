@@ -2,19 +2,20 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { CreateHotelUseCase } from '../../application/use-cases/hotel/create-hotel.use-case';
 import { GetAllHotelsUseCase } from '../../application/use-cases/hotel/get-all-hotels.use-case';
-import { Hotel } from '../../domain/entities/hotel.entity';
-import { HotelRepository } from '../../infrastructure/repositories/hotel.repository';
-import { HotelController } from '../../presentation/controllers/hotel.controller';
+import { HotelRepository } from '../../infrastructure/repositories/hotel.repository.impl';
+import { HotelModel } from 'src/infrastructure/models/hotel.models';
+import { HotelController } from 'src/presentation/controllers/hotel.controller';
 
 
 @Module({
     imports: [
-        SequelizeModule.forFeature([Hotel]),
+        SequelizeModule.forFeature([HotelModel]),
     ],
     controllers: [HotelController],
     providers: [
         GetAllHotelsUseCase,
         CreateHotelUseCase,
+
         {
             provide: 'IHotelRepository',
             useClass: HotelRepository,

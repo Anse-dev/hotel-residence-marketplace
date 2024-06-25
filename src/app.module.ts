@@ -6,6 +6,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { HotelModule } from './modules/hotel/hotel.module';
 import { ResidenceModule } from './modules/residence/residence.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { ResidenceModule } from './modules/residence/residence.module';
       autoLoadModels: true,
       synchronize: true,
     }),
-    HotelModule, ResidenceModule
+    HotelModule, ResidenceModule, UserModule
   ],
 })
 export class AppModule { }
